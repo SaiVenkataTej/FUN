@@ -491,7 +491,7 @@ These techniques deal directly with the model fitting process, stability, parame
 * Class Priors Adjustment (in Naive Bayes)
 * Class adjustments (general term for techniques like class weights or sampling)
 
-## **4. 📊 Evaluation & Visualization**
+## **4. 📊 Evaluation**
 These techniques are used to measure the model's performance and provide diagnostic insight into its structure and behavior.
 
 ### **Regression Metrics**:
@@ -515,7 +515,8 @@ These techniques are used to measure the model's performance and provide diagnos
 * Tree Depth (Decision Trees)
 * Leaf Count (Decision Trees)
 * Prediction Latency (KNN)
-* Visualization & Interpretation:
+
+## **5. 📊 Visualization & Interpretation**:
 * Confusion Matrix (or Heatmap)
 * Residual Plots (Homoscedasticity check)
 * Q-Q Plots (Normality check)
