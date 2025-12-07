@@ -1,4 +1,4 @@
-# GuideML
+# GuideML (Building)
 We are in the phase of working and building with AI applications. We use the AI & ML models unknowingly for our daily purpose; it’s become an integral part of us.
 
 To bridge the gap between complex ML knowledge and practical use, we are implementing a Model Recommender application that simplifies the initial model selection process for users with tabular data. This application serves as a local, high-performance platform designed to execute an automated, standardized Machine Learning pipeline. 
