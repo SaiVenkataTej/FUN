@@ -1,4 +1,4 @@
-# Techniques used
+# Techniques used (models)
 
 ## **1. Linear Regression**
 
@@ -402,7 +402,7 @@
 
 | Technique Names | Purpose / Parameters |
 | :--- | :--- |
-|Stratified K-Fold | Cross - Validation|
+| Stratified K-Fold | Cross - Validation|
 | Distance Weighting | Optimization |
 | GridSearchCV |Hyper Parameter Optimization |
 | Class adjustments | For classification |
@@ -427,3 +427,103 @@
 
 ##### **Interpretation**
 * Local Neighbor Inspection
+
+# 🔬 Techniques Grouped by Functionality
+## **1. 🧺 Data Handling & Preparation**
+These techniques are used to clean the raw input data and prepare it for the model's consumption, primarily addressing missing values and categorical features.
+
+### **Imputation (Missing Values)**:
+
+* SimpleImputer (Median, Mode, Mean, Constant)
+
+### **Encoding (Categorical Features)**:
+
+* OneHotEncoder (with parameters like drop='first' or handle_unknown='ignore')
+* OrdinalEncoder
+* LabelEncoder (typically for the target variable y)
+
+## **2. 🧩 Preprocessing & Feature Engineering**
+These techniques are applied to the feature set (X) to satisfy model requirements (like scaling for distance-based models) or to improve model performance (like dimensionality reduction).
+
+### **Scaling & Normalization**:
+
+* StandardScaler
+* MinMaxScaler
+* RobustScaler
+
+### **Transformation (Distribution/Form)**:
+
+* Log Transformation
+* Box - Cox Transformation
+* PowerTransformer (e.g., Yeo-Johnson for Gaussian assumption)
+
+### **Feature Selection & Dimensionality Reduction**:
+
+* VarianceThreshold
+* SelectKBest (with parameters like f_Regression, χ2 , mutual_info_classif)
+* Recursive Feature Elimination (RFE)
+* SelectFromModel (used to select features based on coefficients/importance)
+* PCA (Principal Component Analysis)
+* NCA (Neighbor Components Analysis)
+
+## **3. ⚙️ Training & Optimization**
+These techniques deal directly with the model fitting process, stability, parameter search, and handling specific data issues during training.
+
+### **Cross-Validation**:
+
+* K-Fold Cross Validation
+* Stratified K-Fold (for classification)
+* Regularization & Optimization:
+* Ridge (L2)
+* Lasso (L1)
+* ElasticNet
+* Cost-Complexity Pruning (CCP)
+* Distance Weighting (in KNN)
+
+### **Hyperparameter Optimization (HPO)**:
+
+* GridSearch CV (with model-specific parameters like alpha, C, gamma, maxDepth, etc.)
+* Randomized Search CV
+
+### **Imbalance Handling**:
+
+* Class Weights (balanced or balanced\_subsample)
+* Class Priors Adjustment (in Naive Bayes)
+* Class adjustments (general term for techniques like class weights or sampling)
+
+## **4. 📊 Evaluation & Visualization**
+These techniques are used to measure the model's performance and provide diagnostic insight into its structure and behavior.
+
+### **Regression Metrics**:
+
+* RMSE (Root Mean Squared Error)
+* MAE (Mean Absolute Error)
+* R<sup>2</sup> Score
+* Adjusted R<sup>2</sup>
+ 
+### **Classification Metrics**:
+
+* Accuracy
+* F1 - Score
+* ROC - AUC Score
+* Precision
+* Log Loss
+* Precision - Recall Score
+
+### Model-Specific Metrics/Diagnostics:
+* OOB Score (Out-of-Bag Error - for Random Forest)
+* Tree Depth (Decision Trees)
+* Leaf Count (Decision Trees)
+* Prediction Latency (KNN)
+* Visualization & Interpretation:
+* Confusion Matrix (or Heatmap)
+* Residual Plots (Homoscedasticity check)
+* Q-Q Plots (Normality check)
+* ROC Curve / Precision - Recall Curve
+* Learning Curves / Validation Curve
+* Coefficient Bar Charts / Odds Ratio Plot
+* Feature Importance Plot (MDI, Gini)
+* Tree Diagram (Graphviz)
+* Decision Boundary Plot
+* Elbow Method Plot (for KNN K selection)
+* Inspection of Support Vectors / Local Neighbor Inspection
