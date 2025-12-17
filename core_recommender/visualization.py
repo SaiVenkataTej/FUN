@@ -254,6 +254,110 @@ def plot_coefficient_bar_chart(feature_names: List[str], coefficients: np.ndarra
     plt.tight_layout()
     
     if save_path:
+        import os
+        os.makedirs(os.path.dirname(os.path.abspath(save_path)), exist_ok=True)
+        fig.savefig(save_path)
+        
+    return fig
+
+# =========================================================================
+# 📈 Regression Diagnostics
+# =========================================================================
+
+def plot_predicted_vs_actual(y_true: np.ndarray, y_pred: np.ndarray, model_name: str, save_path: Optional[str] = None) -> Figure:
+    """
+    Generates a scatter plot of Predicted vs. Actual values.
+    
+    Args:
+        y_true: True target values.
+        y_pred: Predicted target values.
+        model_name: Name of the model.
+        save_path: Optional path to save the plot.
+        
+    Returns:
+        The Matplotlib Figure object.
+    """
+    fig, ax = plt.subplots(figsize=(8, 8))
+    
+    # Scatter plot
+    sns.scatterplot(x=y_true, y=y_pred, ax=ax, alpha=0.6, color='teal', edgecolor='k')
+    
+    # Ideal line (y=x)
+    min_val = min(y_true.min(), y_pred.min())
+    max_val = max(y_true.max(), y_pred.max())
+    ax.plot([min_val, max_val], [min_val, max_val], 'r--', lw=2, label='Ideal Prediction (Perfect Fit)')
+    
+    ax.set_title(f'Predicted vs. Actual - {model_name}', fontsize=14)
+    ax.set_xlabel('Actual Values')
+    ax.set_ylabel('Predicted Values')
+    ax.legend()
+    plt.tight_layout()
+    
+    if save_path:
+        fig.savefig(save_path)
+        
+    return fig
+
+def plot_residual_plot(y_true: np.ndarray, y_pred: np.ndarray, model_name: str, save_path: Optional[str] = None) -> Figure:
+    """
+    Generates a Residual Plot to check for homoscedasticity.
+    
+    Args:
+        y_true: True target values.
+        y_pred: Predicted target values.
+        model_name: Name of the model.
+        save_path: Optional path to save the plot.
+        
+    Returns:
+        The Matplotlib Figure object.
+    """
+    residuals = y_true - y_pred
+    
+    fig, ax = plt.subplots(figsize=(10, 6))
+    
+    sns.scatterplot(x=y_pred, y=residuals, ax=ax, alpha=0.6, color='purple', edgecolor='w')
+    ax.axhline(0, color='red', linestyle='--', lw=2)
+    
+    ax.set_title(f'Residual Plot - {model_name}', fontsize=14)
+    ax.set_xlabel('Predicted Values')
+    ax.set_ylabel('Residuals (Actual - Predicted)')
+    plt.tight_layout()
+    
+    if save_path:
+        fig.savefig(save_path)
+        
+    return fig
+
+def plot_qq_plot(y_true: np.ndarray, y_pred: np.ndarray, model_name: str, save_path: Optional[str] = None) -> Figure:
+    """
+    Generates a Q-Q Plot (Quantile-Quantile) to check normality of residuals.
+    
+    Args:
+        y_true: True target values.
+        y_pred: Predicted target values.
+        model_name: Name of the model.
+        save_path: Optional path to save the plot.
+        
+    Returns:
+        The Matplotlib Figure object.
+    """
+    import scipy.stats as stats
+    
+    residuals = y_true - y_pred
+    
+    fig, ax = plt.subplots(figsize=(8, 8))
+    
+    stats.probplot(residuals, dist="norm", plot=ax)
+    
+    ax.get_lines()[0].set_color('steelblue') # probplot points
+    ax.get_lines()[0].set_markersize(5.0)
+    ax.get_lines()[1].set_color('red')       # probplot line
+    ax.get_lines()[1].set_linewidth(2.0)
+    
+    ax.set_title(f'Q-Q Plot of Residuals - {model_name}', fontsize=14)
+    plt.tight_layout()
+    
+    if save_path:
         fig.savefig(save_path)
         
     return fig

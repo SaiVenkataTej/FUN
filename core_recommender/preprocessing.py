@@ -190,3 +190,13 @@ def get_pca_reducer(n_components: Union[int, float, None] = 0.95) -> PCA:
                       it specifies the variance ratio to be preserved. Defaults to 0.95.
     """
     return PCA(n_components=n_components)
+def get_nca_reducer(n_components: Optional[int] = None, 
+                    random_state: Optional[int] = None) -> NCA:
+    """
+    Returns a configured Neighborhood Components Analysis (NCA) object.
+
+    Args:
+        n_components: Number of components to keep. If None, all components are kept.
+        random_state: Seed for reproducibility. Defaults to None.
+    """
+    return NCA(n_components=n_components, random_state=random_state)
