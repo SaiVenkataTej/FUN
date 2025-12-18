@@ -361,3 +361,52 @@ def plot_qq_plot(y_true: np.ndarray, y_pred: np.ndarray, model_name: str, save_p
         fig.savefig(save_path)
         
     return fig
+
+def plot_precision_recall_curve(y_true: np.ndarray, y_proba: np.ndarray, model_name: str, save_path: Optional[str] = None) -> Figure:
+    """
+    Generates the Precision-Recall Curve.
+    
+    Args:
+        y_true: True binary labels.
+        y_proba: Predicted probabilities (expecting positive class probabilities or 2D array).
+        model_name: Name of the model.
+        save_path: Optional path to save the plot.
+        
+    Returns:
+        The Matplotlib Figure object.
+    """
+    from sklearn.metrics import precision_recall_curve, average_precision_score
+    
+    # Handle inputs
+    y_true = np.array(y_true)
+    y_proba = np.array(y_proba)
+    
+    if y_proba.ndim == 2:
+        if y_proba.shape[1] >= 2:
+             # Take positive class probability (index 1) for binary plot
+             # For multi-class, this simple plot isn't sufficient without one-vs-rest loop, 
+             # focusing on binary as per standard requirement or taking index 1.
+             y_score = y_proba[:, 1]
+        else:
+             y_score = y_proba.ravel()
+    else:
+         y_score = y_proba
+
+    precision, recall, _ = precision_recall_curve(y_true, y_score)
+    avg_precision = average_precision_score(y_true, y_score)
+    
+    fig, ax = plt.subplots(figsize=(8, 8))
+    ax.plot(recall, precision, color='purple', lw=2, label=f'AP (Average Precision) = {avg_precision:.4f}')
+    
+    ax.set_title(f'Precision-Recall Curve - {model_name}', fontsize=14)
+    ax.set_xlabel('Recall')
+    ax.set_ylabel('Precision')
+    ax.legend(loc="lower left")
+    plt.tight_layout()
+    
+    if save_path:
+        import os
+        os.makedirs(os.path.dirname(os.path.abspath(save_path)), exist_ok=True)
+        fig.savefig(save_path)
+        
+    return fig
