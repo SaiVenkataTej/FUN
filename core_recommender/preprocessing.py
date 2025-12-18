@@ -14,6 +14,8 @@ from sklearn.preprocessing import (
     MinMaxScaler,
     RobustScaler,
     OneHotEncoder,
+    OrdinalEncoder,
+
     FunctionTransformer,
     PowerTransformer
 )
@@ -23,7 +25,9 @@ from sklearn.feature_selection import (
     f_regression,
     f_classif,
     SelectFromModel,
-    RFE
+    RFE,
+    chi2,
+    mutual_info_classif
 )
 from sklearn.decomposition import PCA
 from sklearn.neighbors import NeighborhoodComponentsAnalysis as NCA
@@ -53,6 +57,7 @@ def get_imputer(strategy: Literal['mean', 'median', 'most_frequent', 'constant']
 # 2. Encoding
 # =============================================================================
 
+
 def get_one_hot_encoder(handle_unknown: Literal['error', 'ignore'] = 'ignore',
                         sparse_output: bool = False) -> OneHotEncoder:
     """
@@ -64,6 +69,18 @@ def get_one_hot_encoder(handle_unknown: Literal['error', 'ignore'] = 'ignore',
         sparse_output: Whether to return a sparse matrix. Defaults to False (dense output).
     """
     return OneHotEncoder(handle_unknown=handle_unknown, sparse_output=sparse_output)
+
+def get_ordinal_encoder(handle_unknown: Literal['error', 'use_encoded_value'] = 'use_encoded_value',
+                        unknown_value: int = -1) -> OrdinalEncoder:
+    """
+    Returns a configured OrdinalEncoder object.
+    
+    Args:
+        handle_unknown: 'error' or 'use_encoded_value'. Defaults to 'use_encoded_value'.
+        unknown_value: Value to use for unknown categories if handle_unknown is 'use_encoded_value'.
+    """
+    return OrdinalEncoder(handle_unknown=handle_unknown, unknown_value=unknown_value)
+
 
 
 # =============================================================================
@@ -144,8 +161,12 @@ def get_select_k_best(k: int = 10,
             func = f_regression
         elif score_func == 'f_classif':
             func = f_classif
+        elif score_func == 'chi2':
+            func = chi2
+        elif score_func == 'mutual_info_classif':
+            func = mutual_info_classif
         else:
-            raise ValueError(f"Unknown score_func string: {score_func}. Use 'f_regression' or 'f_classif'.")
+            raise ValueError(f"Unknown score_func string: {score_func}. Use 'f_regression', 'f_classif', 'chi2', or 'mutual_info_classif'.")
     else:
         func = score_func
         
