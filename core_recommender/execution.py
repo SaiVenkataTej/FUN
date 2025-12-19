@@ -11,10 +11,10 @@ from core_recommender.modeling.knn import KNNModel
 from core_recommender.modeling.linearRegression import LinearRegressionModel
 from core_recommender.modeling.logisticRegression import LogisticRegressionModel
 # Future imports:
-# from core_recommender.modeling.randomForest import RandomForestModel
-# from core_recommender.modeling.decisionTrees import DecisionTreeModel
-# from core_recommender.modeling.svms import SVMModel
-# from core_recommender.modeling.naiveBayes import NaiveBayesModel
+from core_recommender.modeling.randomForest import RandomForestModel
+from core_recommender.modeling.decisionTrees import DecisionTreeModel
+from core_recommender.modeling.svms import SVMModel
+from core_recommender.modeling.naiveBayes import NaiveBayesModel
 
 # =========================================================================
 # Execution Engine
@@ -86,19 +86,19 @@ class ModelExecutor:
             models.append(LogisticRegressionModel())
             
             # Future Classification Models:
-            # models.append(RandomForestModel(is_classification=True))
-            # models.append(DecisionTreeModel(is_classification=True))
-            # models.append(SVMModel(is_classification=True))
-            # models.append(NaiveBayesModel())
+            models.append(RandomForestModel(is_classification=True))
+            models.append(DecisionTreeModel(is_classification=True))
+            models.append(SVMModel(is_classification=True))
+            models.append(NaiveBayesModel())
             
         elif task_type == 'regression':
             # 2. Linear Regression
             models.append(LinearRegressionModel())
             
             # Future Regression Models:
-            # models.append(RandomForestModel(is_classification=False))
-            # models.append(DecisionTreeModel(is_classification=False))
-            # models.append(SVMModel(is_classification=False))
+            models.append(RandomForestModel(is_classification=False))
+            models.append(DecisionTreeModel(is_classification=False))
+            models.append(SVMModel(is_classification=False))
             
         return models
 

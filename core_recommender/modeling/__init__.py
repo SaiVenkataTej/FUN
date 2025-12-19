@@ -1,1 +1,9 @@
-ECHO is on.
+from .baseModel import BaseModel
+from .knn import KNNModel
+from .svms import SVMModel
+from .decisionTrees import DecisionTreeModel
+from .linearRegression import LinearRegressionModel
+from .logisticRegression import LogisticRegressionModel
+from .PCA import PCAModel
+from .randomForest import RandomForestModel
+from .naiveBayes import NaiveBayesModel
